@@ -13,7 +13,7 @@ import {
   MapWidgetFactory
 } from './widget';
 
-import './leaflet.css';
+import 'leaflet/dist/leaflet.css';
 
 /**
  * The list of file extensions for maps.
