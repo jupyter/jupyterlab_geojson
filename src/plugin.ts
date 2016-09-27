@@ -2,18 +2,49 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  JupyterLabPlugin
+  IDocumentRegistry
+} from 'jupyterlab/lib/docregistry';
+
+import {
+  JupyterLab, JupyterLabPlugin
 } from 'jupyterlab/lib/application';
 
+import {
+  MapWidgetFactory
+} from './widget';
+
+import './leaflet.css';
+
 /**
- * Initialization data for the jupyterlab_geojson extension.
+ * The list of file extensions for maps.
  */
-const extension: JupyterLabPlugin<void> = {
-  id: 'jupyterlab_geojson',
-  autoStart: true,
-  activate: (app) => {
-    console.log('JupyterLab extension jupyterlab_geojson is activated!');
-  }
+const EXTENSIONS = ['.geojson'];
+
+
+/**
+ * The geojson file handler extension.
+ */
+export
+const mapHandlerExtension: JupyterLabPlugin<void> = {
+  id: 'jupyter.extensions.map-handler',
+  requires: [IDocumentRegistry],
+  activate: activateMapWidget,
+  autoStart: true
 };
 
-export default extension;
+export default mapHandlerExtension;
+
+/**
+ * Activate the map widget extension.
+ */
+function activateMapWidget(app: JupyterLab, registry: IDocumentRegistry): void {
+    let options = {
+      fileExtensions: EXTENSIONS,
+      displayName: 'Map',
+      modelName: 'text',
+      defaultFor: EXTENSIONS,
+      preferKernel: false,
+      canStartKernel: false
+    };
+    registry.addWidgetFactory(new MapWidgetFactory(), options);
+}

@@ -17,7 +17,8 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "jupyterlab": "^0.3.0"
+    "jupyterlab": "^0.3.0",
+    "leaflet": "^1.0.0"
   },
   "devDependencies": {
     "fs-extra": "^0.30.0",
