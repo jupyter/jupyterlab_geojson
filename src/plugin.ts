@@ -18,8 +18,8 @@ import 'leaflet/dist/leaflet.css';
 /**
  * The list of file extensions for maps.
  */
-const EXTENSIONS = ['.geojson'];
-
+const EXTENSIONS = ['.geojson', '.json'];
+const DEFAULT_EXTENSIONS = ['.geojson']
 
 /**
  * The geojson file handler extension.
@@ -42,7 +42,7 @@ function activateMapWidget(app: JupyterLab, registry: IDocumentRegistry): void {
       fileExtensions: EXTENSIONS,
       displayName: 'Map',
       modelName: 'text',
-      defaultFor: EXTENSIONS,
+      defaultFor: DEFAULT_EXTENSIONS,
       preferKernel: false,
       canStartKernel: false
     };
