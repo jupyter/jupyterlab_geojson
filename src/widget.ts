@@ -2,7 +2,7 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  IKernel
+  Kernel
 } from 'jupyter-js-services';
 
 import {
@@ -175,7 +175,7 @@ class MapWidgetFactory extends ABCWidgetFactory<MapWidget, IDocumentModel> {
   /**
    * Create a new widget given a context.
    */
-  createNew(context: IDocumentContext<IDocumentModel>, kernel?: IKernel.IModel): MapWidget {
+  createNew(context: IDocumentContext<IDocumentModel>, kernel?: Kernel.IModel): MapWidget {
     let widget = new MapWidget(context);
     this.widgetCreated.emit(widget);
     return widget;

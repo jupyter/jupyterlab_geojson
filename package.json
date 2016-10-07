@@ -22,9 +22,11 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.0.34",
+    "@types/node": "^6.0.45",
     "fs-extra": "^0.30.0",
-    "rimraf": "^2.5.4",
+    "jupyter-js-services": "^0.20.0",
     "jupyterlab-extension-builder": "^0.6.2",
+    "rimraf": "^2.5.4",
     "typescript": "^2.0.3"
   }
 }
