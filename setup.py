@@ -27,7 +27,7 @@ if not os.path.exists('node_modules'):
 
 setup_args = dict(
     name                 = 'jupyterlab_geojson',
-    version              = '0.1.2',
+    version              = '0.1.3',
     packages             = ['jupyterlab_geojson'],
     author               = 'Jason Grout',
     author_email         = 'jgrout6@bloomberg.net',
