@@ -3,7 +3,7 @@
 
 import {
   Kernel
-} from 'jupyter-js-services';
+} from '@jupyterlab/services';
 
 import {
   deepEqual, JSONValue
@@ -18,7 +18,7 @@ import {
 } from 'phosphor/lib/ui/widget';
 
 import {
-  ABCWidgetFactory, IDocumentModel, IDocumentContext
+  ABCWidgetFactory, DocumentRegistry
 } from 'jupyterlab/lib/docregistry';
 
 import * as leaflet from 'leaflet';
@@ -37,7 +37,7 @@ class MapWidget extends Widget {
   /**
    * Construct a new map widget.
    */
-  constructor(context: IDocumentContext<IDocumentModel>) {
+  constructor(context: DocumentRegistry.IContext<DocumentRegistry.IModel>) {
     super();
     this._context = context;
     this.node.tabIndex = -1;
@@ -163,7 +163,7 @@ class MapWidget extends Widget {
   private _geojson: JSONValue = null;
   private _geojsonLayer: leaflet.GeoJSON;
   private _map: leaflet.Map;
-  private _context: IDocumentContext<IDocumentModel>;
+  private _context: DocumentRegistry.IContext<DocumentRegistry.IModel>;
 }
 
 
@@ -171,11 +171,11 @@ class MapWidget extends Widget {
  * A widget factory for maps.
  */
 export
-class MapWidgetFactory extends ABCWidgetFactory<MapWidget, IDocumentModel> {
+class MapWidgetFactory extends ABCWidgetFactory<MapWidget, DocumentRegistry.IModel> {
   /**
    * Create a new widget given a context.
    */
-  createNew(context: IDocumentContext<IDocumentModel>, kernel?: Kernel.IModel): MapWidget {
+  createNew(context: DocumentRegistry.IContext<DocumentRegistry.IModel>, kernel?: Kernel.IModel): MapWidget {
     let widget = new MapWidget(context);
     this.widgetCreated.emit(widget);
     return widget;
