@@ -34,25 +34,6 @@ To rebuild the extension bundle:
 npm run build
 ```
 
-## Leaflet modification
-
-In order for webpack to bundle leaflet 1.0.0, apply this patch to the `leaflet/dist/leaflet.css` file in the `node_modules` directory and run `npm build` again:
-
-```
---- node_modules/leaflet/dist/leaflet.css	2016-09-27 03:09:26.000000000 -0700
-+++ leaflet.css	2016-09-27 17:28:19.000000000 -0700
-@@ -376,7 +376,7 @@
- 
- /* Default icon URLs */
- .leaflet-default-icon-path {
--	background-image: url(images/);
-+	background-image: url(images/layers.png);;
- 	}
- 
-```
-
-See https://github.com/Leaflet/Leaflet/issues/4849 for details.
-
 ## License
 
 We use a shared copyright model that enables all contributors to maintain the
