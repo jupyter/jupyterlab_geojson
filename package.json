@@ -17,13 +17,14 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "jupyterlab": "^0.5.1",
-    "leaflet": "^1.0.1"
+    "jupyterlab": "^0.7.0",
+    "leaflet": "^1.0.1",
+    "lodash": "^4.16.4"
   },
   "devDependencies": {
-    "@jupyterlab/extension-builder": "^0.7.0",
-    "@jupyterlab/services": "^0.22.0",
+    "@jupyterlab/extension-builder": "^0.7.1",
     "@types/leaflet": "^1.0.34",
+    "@types/lodash": "^4.14.37",
     "@types/node": "^6.0.45",
     "fs-extra": "^0.30.0",
     "rimraf": "^2.5.4",

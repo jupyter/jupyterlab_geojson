@@ -6,10 +6,6 @@ import {
 } from '@jupyterlab/services';
 
 import {
-  deepEqual, JSONValue
-} from 'phosphor/lib/algorithm/json';
-
-import {
   Message
 } from 'phosphor/lib/core/messaging';
 
@@ -22,6 +18,9 @@ import {
 } from 'jupyterlab/lib/docregistry';
 
 import * as leaflet from 'leaflet';
+
+import * as isEqual from 'lodash/isEqual';
+
 
 /**
  * The class name added to a map widget.
@@ -99,8 +98,14 @@ class MapWidget extends Widget {
       return;
     }
     let content = this._context.model.toString();
-    let geojson: JSONValue = content ? JSON.parse(content) : content;
-    if (deepEqual(geojson, this._geojson)) {
+
+    // TODO: we should validate the geojson and stop if it's not valid. There are NPM packages
+    // that do this, apparently.
+    let geojson: GeoJSON.GeoJsonObject = content ? JSON.parse(content) : content;
+
+    // TODO: we could write our own comparison function for geojson objects that would be
+    // much lighter weight than pulling in lodash's isEqual function.
+    if (isEqual(geojson, this._geojson)) {
       return;
     }
 
@@ -111,11 +116,12 @@ class MapWidget extends Widget {
     this._geojson = geojson;
     this._geojsonLayer = null;
     if (geojson) {
-      this._geojsonLayer = leaflet.geoJSON(geojson, {
-        pointToLayer: function (feature, latlng) {
+      let options: leaflet.GeoJSONOptions = {
+        pointToLayer: function (geoJsonPoint, latlng) {
             return leaflet.circleMarker(latlng);
         }
-      });
+      };
+      this._geojsonLayer = leaflet.geoJSON(geojson, options);
       this._map.addLayer(this._geojsonLayer);
       this._fitLayerBounds();
     }
@@ -160,7 +166,7 @@ class MapWidget extends Widget {
   private _sized = false;
   private _width = -1;
   private _height = -1;
-  private _geojson: JSONValue = null;
+  private _geojson: GeoJSON.GeoJsonObject = null;
   private _geojsonLayer: leaflet.GeoJSON;
   private _map: leaflet.Map;
   private _context: DocumentRegistry.IContext<DocumentRegistry.IModel>;
@@ -175,7 +181,7 @@ class MapWidgetFactory extends ABCWidgetFactory<MapWidget, DocumentRegistry.IMod
   /**
    * Create a new widget given a context.
    */
-  createNew(context: DocumentRegistry.IContext<DocumentRegistry.IModel>, kernel?: Kernel.IModel): MapWidget {
+  createNewWidget(context: DocumentRegistry.IContext<DocumentRegistry.IModel>, kernel?: Kernel.IModel): MapWidget {
     let widget = new MapWidget(context);
     this.widgetCreated.emit(widget);
     return widget;
