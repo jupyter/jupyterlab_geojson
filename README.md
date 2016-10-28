@@ -5,7 +5,7 @@ A JupyterLab extension for rendering GeoJSON data.
 
 ## Prerequisites
 
-* JupyterLab 0.3.0 or later
+* JupyterLab 0.7.0 or later
 
 ## Installation
 

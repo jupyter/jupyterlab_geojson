@@ -33,7 +33,7 @@ setup_args = dict(
     author_email         = 'jgrout6@bloomberg.net',
     include_package_data = True,
     install_requires = [
-        'jupyterlab>=0.3.0',
+        'jupyterlab>=0.7.0',
     ]
 )
 

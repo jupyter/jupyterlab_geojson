@@ -40,11 +40,11 @@ export default mapHandlerExtension;
 function activateMapWidget(app: JupyterLab, registry: IDocumentRegistry): void {
     let options = {
       fileExtensions: EXTENSIONS,
-      displayName: 'Map',
+      name: 'Map',
       modelName: 'text',
       defaultFor: DEFAULT_EXTENSIONS,
       preferKernel: false,
       canStartKernel: false
     };
-    registry.addWidgetFactory(new MapWidgetFactory(), options);
+    registry.addWidgetFactory(new MapWidgetFactory(options));
 }
