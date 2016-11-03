@@ -27,13 +27,20 @@ if not os.path.exists('node_modules'):
 
 setup_args = dict(
     name                 = 'jupyterlab_geojson',
-    version              = '0.2.0',
+    version              = '0.3.0',
     packages             = ['jupyterlab_geojson'],
     author               = 'Jason Grout',
     author_email         = 'jgrout6@bloomberg.net',
+    zip_safe             = False,
+    data_files           = [(
+        'share/jupyter/labextensions/jupyterlab_geojson', [
+            'jupyterlab_geojson/static/jupyterlab_geojson.bundle.js',
+            'jupyterlab_geojson/static/jupyterlab_geojson.bundle.js.manifest',
+            'jupyterlab_geojson/static/jupyterlab_geojson.css'
+        ])],
     include_package_data = True,
     install_requires = [
-        'jupyterlab>=0.7.0',
+        'jupyterlab>=0.8.0',
     ]
 )
 
