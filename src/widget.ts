@@ -19,8 +19,9 @@ import {
 
 import * as leaflet from 'leaflet';
 
-import * as isEqual from 'lodash/isEqual';
-
+import {
+    isEqual
+} from 'lodash';
 
 /**
  * The class name added to a map widget.
