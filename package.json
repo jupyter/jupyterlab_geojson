@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "jupyterlab_geojson",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "A JupyterLab extension for rendering GeoJSON data.",
   "author": "Jason Grout",
   "main": "lib/plugin.js",
@@ -17,17 +17,17 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "jupyterlab": "^0.8.0",
+    "jupyterlab": "^0.13.1",
     "leaflet": "^1.0.1",
     "lodash": "^4.16.4"
   },
   "devDependencies": {
-    "@jupyterlab/extension-builder": "^0.8.1",
+    "@jupyterlab/extension-builder": "^0.10.0",
     "@types/leaflet": "^1.0.34",
     "@types/lodash": "^4.14.37",
     "@types/node": "^6.0.45",
     "fs-extra": "^0.30.0",
     "rimraf": "^2.5.4",
-    "typescript": "^2.0.6"
+    "typescript": "~2.0.6"
   }
 }
