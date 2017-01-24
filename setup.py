@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-
 import os
 import sys
 from distutils.core import setup
@@ -19,7 +14,7 @@ if 'develop' in sys.argv or any(a.startswith('bdist') for a in sys.argv):
 # Ensure that js has been built. This does not guaruntee that the packages
 # are update to date. In the future we might do a more expensive check
 # involving file hashes, but only on sdist and bdist builds.
-if not os.path.exists('node_modules'):
+if not os.path.exists('labextension/node_modules') and not os.path.exists('nbextension/node_modules'):
     raise NodeModulesMissing("Before Python package can be installed or built, "
                              "JavaScript components must be built using npm. "
                              "Run the following and then retry: "
@@ -27,20 +22,15 @@ if not os.path.exists('node_modules'):
 
 setup_args = dict(
     name                 = 'jupyterlab_geojson',
-    version              = '0.4.0',
+    version              = '0.1.0',
     packages             = ['jupyterlab_geojson'],
-    author               = 'Jason Grout',
-    author_email         = 'jgrout6@bloomberg.net',
-    zip_safe             = False,
-    data_files           = [(
-        'share/jupyter/labextensions/jupyterlab_geojson', [
-            'jupyterlab_geojson/static/jupyterlab_geojson.bundle.js',
-            'jupyterlab_geojson/static/jupyterlab_geojson.bundle.js.manifest',
-            'jupyterlab_geojson/static/jupyterlab_geojson.css'
-        ])],
+    author               = 'Grant Nestor',
+    author_email         = 'grantnestor@gmail.com',
+    keywords             = ['jupyter', 'jupyterlab', 'labextension', 'notebook', 'nbextension'],
     include_package_data = True,
     install_requires = [
-        'jupyterlab>=0.8.0',
+        'jupyterlab>=0.11.0',
+        'ipython>=1.0.0'
     ]
 )
 

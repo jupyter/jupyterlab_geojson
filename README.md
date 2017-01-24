@@ -1,43 +1,84 @@
 # jupyterlab_geojson
 
-A JupyterLab extension for rendering GeoJSON data.
+A JupyterLab and Jupyter Notebook extension for rendering GeoJSON
 
+![output renderer](http://g.recordit.co/QAsC7YULcY.gif)
 
 ## Prerequisites
 
-* JupyterLab 0.7.0 or later
+* JupyterLab >=0.11.0 and/or Notebook >=4.3
 
-## Installation
+## Usage
+
+To render GeoJSON output in IPython:
+
+```python
+from jupyterlab_geojson import GeoJSON
+
+GeoJSON({
+    "string": "string",
+    "array": [1, 2, 3],
+    "bool": True,
+    "object": {
+        "foo": "bar"
+    }
+})
+```
+
+To render a `.geojson` file as a tree, simply open it:
+
+![file renderer](http://g.recordit.co/cbf0xnQHKn.gif)
+
+## Install
 
 To install using pip:
 
 ```bash
 pip install jupyterlab_geojson
+# For JupyterLab
 jupyter labextension install --py --sys-prefix jupyterlab_geojson
 jupyter labextension enable --py --sys-prefix jupyterlab_geojson
+# For Notebook
+jupyter nbextension install --py --sys-prefix jupyterlab_geojson
+jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```
 
 ## Development
 
-For a development install (requires npm version 4 or later), do the following in the repository directory:
+### Set up using install script
+
+Use the `install.sh` script to build the Javascript, install the Python package, and install/enable the notebook and lab extensions:
 
 ```bash
-npm install
+bash install.sh --sys-prefix
+```
+
+Use the `build.sh` script to rebuild the Javascript:
+
+```bash
+bash build.sh
+```
+
+### Set up manually
+
+Alternatively, see the `README.md` in `/labextension` and `/nbextension` for extension-specific build instructions. 
+
+To install the Python package:
+
+```bash
 pip install -e .
+```
+
+To install the extension for JupyterLab:
+
+```bash
 jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson
 jupyter labextension enable --py --sys-prefix jupyterlab_geojson
 ```
 
-To rebuild the extension bundle:
+To install the extension for Jupyter Notebook:
 
 ```bash
-npm run build
+jupyter nbextension install --symlink --py --sys-prefix jupyterlab_geojson
+jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```
-
-## License
-
-We use a shared copyright model that enables all contributors to maintain the
-copyright on their contributions.
-
-All code is licensed under the terms of the revised BSD license. See the LICENSE file
-for details.
