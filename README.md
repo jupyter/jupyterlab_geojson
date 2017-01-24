@@ -75,6 +75,8 @@ To install the extension for JupyterLab:
 
 ```bash
 jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson
+# Windows users
+# jupyter labextension install --py --sys-prefix jupyterlab_geojson
 jupyter labextension enable --py --sys-prefix jupyterlab_geojson
 ```
 
@@ -82,5 +84,7 @@ To install the extension for Jupyter Notebook:
 
 ```bash
 jupyter nbextension install --symlink --py --sys-prefix jupyterlab_geojson
+# Windows users
+# jupyter nbextension install --py --sys-prefix jupyterlab_geojson
 jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```
