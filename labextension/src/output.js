@@ -39,7 +39,7 @@ export class OutputWidget extends Widget {
    */
   _render() {
     let json = this._source;
-    ReactDOM.render(<GeoJSON data={json} />, this.node);
+    if (json.type) ReactDOM.render(<GeoJSON data={json} />, this.node);
   }
 
 }

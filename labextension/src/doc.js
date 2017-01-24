@@ -46,7 +46,7 @@ export class DocWidget extends Widget {
     if (this.isAttached) {
       let content = this._context.model.toString();
       let json = content ? JSON.parse(content) : {};
-      ReactDOM.render(<GeoJSON data={json} />, this.node);
+      if (json.type) ReactDOM.render(<GeoJSON data={json} />, this.node);
     }
   }
 
