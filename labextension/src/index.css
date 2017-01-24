@@ -1,0 +1,17 @@
+/* 
+  Copyright (c) Jupyter Development Team.
+  Distributed under the terms of the Modified BSD License. 
+*/
+
+.jp-OutputWidgetGeoJSON, .jp-DocWidgetGeoJSON {
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.jp-OutputWidgetGeoJSON {
+  
+}
+
+.jp-DocWidgetGeoJSON {
+  
+}
