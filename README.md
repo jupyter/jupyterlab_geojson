@@ -1,8 +1,8 @@
 # jupyterlab_geojson
 
-A JupyterLab and Jupyter Notebook extension for rendering GeoJSON
+A JupyterLab and Jupyter Notebook extension for rendering GeoJSON data
 
-![output renderer](http://g.recordit.co/QAsC7YULcY.gif)
+![output renderer](http://g.recordit.co/i2yLx3WNWy.gif)
 
 ## Prerequisites
 
@@ -16,18 +16,20 @@ To render GeoJSON output in IPython:
 from jupyterlab_geojson import GeoJSON
 
 GeoJSON({
-    "string": "string",
-    "array": [1, 2, 3],
-    "bool": True,
-    "object": {
-        "foo": "bar"
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4563712, 34.0163116]
+    },
+    "properties": {
+        "name": "Clover Park"
     }
 })
 ```
 
-To render a `.geojson` file as a tree, simply open it:
+To render a .geojson file as a tree, simply open it:
 
-![file renderer](http://g.recordit.co/cbf0xnQHKn.gif)
+![file renderer](http://g.recordit.co/5QvIyPP1kW.gif)
 
 ## Install
 
