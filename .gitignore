@@ -1,4 +1,5 @@
 jupyterlab_geojson/static/
 jupyterlab_geojson/__pycache__/
 jupyterlab_geojson.egg-info
-node_modules
+node_modules/
+nbextension/embed/
