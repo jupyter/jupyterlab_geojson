@@ -1,5 +1,6 @@
 import { Widget } from 'phosphor/lib/ui/widget';
 import { ABCWidgetFactory } from 'jupyterlab/lib/docregistry';
+import { ActivityMonitor } from 'jupyterlab/lib/common/activitymonitor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GeoJSON from 'jupyterlab_geojson_react';
@@ -8,6 +9,11 @@ import GeoJSON from 'jupyterlab_geojson_react';
  * The class name added to this DocWidget.
  */
 const CLASS_NAME = 'jp-DocWidgetGeoJSON';
+
+/**
+ * The timeout to wait for change activity to have ceased before rendering.
+ */
+const RENDER_TIMEOUT = 1000;
 
 
 /**
@@ -25,6 +31,11 @@ export class DocWidget extends Widget {
     context.pathChanged.connect(() => {
       this.update();
     });
+    this._monitor = new ActivityMonitor({
+      signal: context.model.contentChanged,
+      timeout: RENDER_TIMEOUT
+    });
+    this._monitor.activityStopped.connect(this.update, this);
   }
 
   /**
@@ -34,6 +45,7 @@ export class DocWidget extends Widget {
     if (!this.isDisposed) {
       this._context = null;
       ReactDOM.unmountComponentAtNode(this.node);
+      this._monitor.dispose();
       super.dispose();
     }
   }
