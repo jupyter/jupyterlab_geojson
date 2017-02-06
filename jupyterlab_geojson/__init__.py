@@ -1,5 +1,5 @@
-from IPython.display import display
-
+from IPython.display import display, JSON
+import json
 
 # Running `npm run build` will create static resources in the static
 # directory of this Python package (and create that directory if necessary).
@@ -20,14 +20,22 @@ def _jupyter_nbextension_paths():
     }]
 
 
-# A display function that can be used within a notebook. E.g.:
-#   from jupyterlab_geojson import GeoJSON
-#   GeoJSON(data)
+class GeoJSON(JSON):
 
-def GeoJSON(data):
-    bundle = {
-        'application/geo+json': data,
-        'application/json': data,
-        'text/plain': '<jupyterlab_geojson.GeoJSON object>'
-    }
-    display(bundle, raw=True)
+    @property
+    def data(self):
+        return self._data
+    
+    @data.setter
+    def data(self, data):
+        if isinstance(data, str):
+            data = json.loads(data)
+        self._data = data
+
+    def _ipython_display_(self):
+        bundle = {
+            'application/geo+json': self.data,
+            'text/plain': '<jupyterlab_geojson.GeoJSON object>'
+        }
+        display(bundle, raw=True)
+
