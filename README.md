@@ -13,7 +13,8 @@ A JupyterLab and Jupyter Notebook extension for rendering GeoJSON data
 To render GeoJSON output in IPython:
 
 ```python
-from jupyterlab_geojson import GeoJSON
+# IPython.display.GeoJSON is available as of ipython@6.0.0
+from IPython.display import GeoJSON
 
 GeoJSON({
     "type": "Feature",
