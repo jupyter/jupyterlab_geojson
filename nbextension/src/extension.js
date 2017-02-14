@@ -17,9 +17,10 @@ if (window.require) {
 export function load_ipython_extension() {
   define([
     'nbextensions/jupyterlab_geojson/index',
-    'jquery'
-  ], (Extension, $) => {
-    Extension.register_renderer($);
-    Extension.render_cells($);
+    'base/js/namespace'
+  ], (Extension, Jupyter) => {
+    const { notebook } = Jupyter;
+    Extension.register_renderer(notebook);
+    Extension.render_cells(notebook);
   });
 };
