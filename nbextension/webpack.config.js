@@ -63,7 +63,7 @@ module.exports = [
     },
     externals: [
       'nbextensions/jupyterlab_geojson/index',
-      'jquery'
+      'base/js/namespace'
     ]
   },
   // Bundle for the notebook containing the custom widget views and models
