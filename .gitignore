@@ -1,5 +1,16 @@
-jupyterlab_geojson/static/
-jupyterlab_geojson/__pycache__/
-jupyterlab_geojson.egg-info
-node_modules/
+labextension/lib/
+nbextension/lib/
 nbextension/embed/
+*/node_modules/
+npm-debug.log
+*.egg-info/
+build/
+dist/
+MANIFEST
+
+# Compiled javascript
+jupyterlab_geojson/__pycache__/
+jupyterlab_geojson/static/
+
+# OS X
+.DS_Store

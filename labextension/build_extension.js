@@ -3,8 +3,13 @@ var path = require('path');
 
 buildExtension({
   name: 'jupyterlab_geojson',
-  entry: './src/plugin.js',
-  outputDir: '../jupyterlab_geojson/static',
+  entry: path.join(__dirname, 'src', 'plugin.js'),
+  outputDir: path.join(
+    __dirname,
+    '..',
+    'jupyterlab_geojson',
+    'static'
+  ),
   useDefaultLoaders: false,
   config: {
     module: {
@@ -31,9 +36,18 @@ buildExtension({
         { test: /\.json$/, loader: 'json-loader' },
         {
           test: /\.js$/,
-          exclude: /node_modules(?!\/jupyterlab_geojson_react)/,
+          include: [
+            path.join(__dirname, 'src'),
+            path.join(
+              __dirname,
+              'node_modules',
+              'jupyterlab_geojson_react'
+            )
+          ],
           loader: 'babel-loader',
-          query: { presets: [ 'latest', 'stage-0', 'react' ] }
+          query: {
+            presets: [ 'latest', 'stage-0', 'react' ]
+          }
         }
       ]
     }
