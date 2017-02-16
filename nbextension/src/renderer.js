@@ -1,30 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoJSON from 'jupyterlab_geojson_react';
+import GeoJSONComponent from 'jupyterlab_geojson_react';
 import './index.css';
 
 const MIME_TYPE = 'application/geo+json';
 const CLASS_NAME = 'output_GeoJSON rendered_html';
 
-//
-// Render data to the output area
-// 
+/**
+ * Render data to the output area
+ */
 function render(data, node) {
-    ReactDOM.render(<GeoJSON data={data} />, node);
+    ReactDOM.render(<GeoJSONComponent data={data} />, node);
 }
 
-//
-// Register the mime type and append_mime_type function with the notebook's OutputArea
-// 
+/**
+ * Register the mime type and append_mime_type function with the notebook's 
+ * OutputArea
+ */
 export function register_renderer($) {
   // Get an instance of the OutputArea object from the first CodeCellebook_
-  const OutputArea = $('#notebook-container').find('.code_cell').eq(0).data('cell').output_area;
+  const OutputArea = $('#notebook-container')
+    .find('.code_cell')
+    .eq(0)
+    .data('cell').output_area;
   // A function to render output of 'application/geo+json' mime type
   const append_mime = function(json, md, element) {
     const type = MIME_TYPE;
     const toinsert = this.create_output_subarea(md, CLASS_NAME, type);
     this.keyboard_manager.register_events(toinsert);
-    render(json, toinsert[0]);
+    render(json, toinsert[(0)]);
     element.append(toinsert);
     return toinsert;
   };
@@ -44,15 +48,20 @@ export function register_renderer($) {
   });
 }
 
-//
-// Re-render cells with output data of 'application/geo+json' mime type
-// 
+/**
+ * Re-render cells with output data of 'application/geo+json' mime type
+ */
 export function render_cells($) {
   // Get all cells in notebook
   $('#notebook-container').find('.cell').toArray().forEach(item => {
     const CodeCell = $(item).data('cell');
     // If a cell has output data of 'application/geo+json' mime type
-    if (CodeCell.output_area && CodeCell.output_area.outputs.find(output => output.data && output.data[MIME_TYPE])) {
+    if (
+      CodeCell.output_area &&
+        CodeCell.output_area.outputs.find(
+          output => output.data && output.data[MIME_TYPE]
+        )
+    ) {
       // Re-render the cell by executing it
       CodeCell.notebook.render_cell_output(CodeCell);
     }
