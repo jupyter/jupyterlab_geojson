@@ -3,7 +3,7 @@ import { ABCWidgetFactory } from 'jupyterlab/lib/docregistry';
 import { ActivityMonitor } from 'jupyterlab/lib/common/activitymonitor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoJSON from 'jupyterlab_geojson_react';
+import GeoJSONComponent from 'jupyterlab_geojson_react';
 
 /**
  * The class name added to this DocWidget.
@@ -15,12 +15,10 @@ const CLASS_NAME = 'jp-DocWidgetGeoJSON';
  */
 const RENDER_TIMEOUT = 1000;
 
-
 /**
  * A widget for rendering jupyterlab_geojson files.
  */
 export class DocWidget extends Widget {
-
   constructor(context) {
     super();
     this._context = context;
@@ -58,7 +56,7 @@ export class DocWidget extends Widget {
     if (this.isAttached) {
       let content = this._context.model.toString();
       let json = content ? JSON.parse(content) : {};
-      if (json.type) ReactDOM.render(<GeoJSON data={json} />, this.node);
+      ReactDOM.render(<GeoJSONComponent data={json} />, this.node);
     }
   }
 
@@ -68,19 +66,16 @@ export class DocWidget extends Widget {
   onAfterAttach(msg) {
     this.update();
   }
-
 }
-
 
 /**
  * A widget factory for DocWidget.
  */
 export class DocWidgetFactory extends ABCWidgetFactory {
-
   constructor(options) {
     super(options);
   }
-  
+
   /**
    * Create a new widget given a context.
    */
@@ -89,5 +84,4 @@ export class DocWidgetFactory extends ABCWidgetFactory {
     this.widgetCreated.emit(widget);
     return widget;
   }
-
 }

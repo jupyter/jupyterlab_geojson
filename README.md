@@ -1,12 +1,12 @@
 # jupyterlab_geojson
 
-A JupyterLab and Jupyter Notebook extension for rendering GeoJSON data
+A JupyterLab and Jupyter Notebook extension for rendering GeoJSON
 
-![output renderer](http://g.recordit.co/i2yLx3WNWy.gif)
+![output renderer](http://g.recordit.co/QAsC7YULcY.gif)
 
 ## Prerequisites
 
-* JupyterLab ^0.16.0 and/or Notebook >=4.3.0
+* JupyterLab ^0.15.0 and/or Notebook >=4.3.0
 
 ## Usage
 
@@ -16,20 +16,18 @@ To render GeoJSON output in IPython:
 from jupyterlab_geojson import GeoJSON
 
 GeoJSON({
-    "type": "Feature",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-118.4563712, 34.0163116]
-    },
-    "properties": {
-        "name": "Clover Park"
+    "string": "string",
+    "array": [1, 2, 3],
+    "bool": True,
+    "object": {
+        "foo": "bar"
     }
 })
 ```
 
-To render a .geojson file as a tree, simply open it:
+To render a `.geojson` file as a tree, simply open it:
 
-![file renderer](http://g.recordit.co/5QvIyPP1kW.gif)
+![file renderer](http://g.recordit.co/cbf0xnQHKn.gif)
 
 ## Install
 
@@ -75,8 +73,6 @@ To install the extension for JupyterLab:
 
 ```bash
 jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson
-# Windows users
-# jupyter labextension install --py --sys-prefix jupyterlab_geojson
 jupyter labextension enable --py --sys-prefix jupyterlab_geojson
 ```
 
@@ -84,7 +80,5 @@ To install the extension for Jupyter Notebook:
 
 ```bash
 jupyter nbextension install --symlink --py --sys-prefix jupyterlab_geojson
-# Windows users
-# jupyter nbextension install --py --sys-prefix jupyterlab_geojson
 jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```
