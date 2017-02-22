@@ -3,7 +3,7 @@ import { ABCWidgetFactory } from 'jupyterlab/lib/docregistry';
 import { ActivityMonitor } from 'jupyterlab/lib/common/activitymonitor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoJSONComponent from 'jupyterlab_geojson_react';
+import GeoJSON from 'jupyterlab_geojson_react';
 
 /**
  * The class name added to a DocWidget.
@@ -19,6 +19,7 @@ const RENDER_TIMEOUT = 1000;
  * A widget for rendering jupyterlab_geojson files.
  */
 export class DocWidget extends Widget {
+
   constructor(context) {
     super();
     this._context = context;

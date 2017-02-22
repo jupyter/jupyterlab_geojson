@@ -1,7 +1,7 @@
 import { Widget } from '@phosphor/widgets';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoJSONComponent from 'jupyterlab_geojson_react';
+import GeoJSON from 'jupyterlab_geojson_react';
 
 /**
  * The class name added to this OutputWidget.
@@ -38,7 +38,7 @@ export class OutputWidget extends Widget {
    */
   _render() {
     ReactDOM.render(
-      <GeoJSONComponent data={this._data} metadata={this._metadata} />,
+      <GeoJSON data={this._data} metadata={this._metadata} />,
       this.node
     );
   }
@@ -48,7 +48,7 @@ export class OutputRenderer {
   /**
    * The mime types this OutputRenderer accepts.
    */
-  mimeTypes = [ 'application/geo+json' ];
+  mimeTypes = ['application/geo+json'];
 
   /**
    * Whether the renderer can render given the render options.
