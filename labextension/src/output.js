@@ -38,7 +38,7 @@ export class OutputWidget extends Widget {
    */
   _render() {
     ReactDOM.render(
-      <GeoJSON data={this._data} metadata={this._metadata || {}} />,
+      <GeoJSON data={this._data} metadata={this._metadata} />,
       this.node
     );
   }
