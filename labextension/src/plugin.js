@@ -34,8 +34,8 @@ function activatePlugin(app, rendermime, registry) {
   /**
    * Set the extensions associated with GeoJSON.
    */
-  const EXTENSIONS = ['.geojson', '.json'];
-  const DEFAULT_EXTENSIONS = ['.geojson'];
+  const EXTENSIONS = ['.geojson', '.geo.json', '.json'];
+  const DEFAULT_EXTENSIONS = ['.geojson', '.geo.json'];
 
     /**
      * Add file handler for geojson files.
