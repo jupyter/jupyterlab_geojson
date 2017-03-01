@@ -22,32 +22,19 @@ export default class Component extends React.Component {
     const { data, metadata } = this.props;
     this.map = Leaflet.map(this.element);
     this.map.scrollWheelZoom.disable();
-    this.tileLayer = Leaflet
-      .tileLayer(
-        metadata && metadata.tileUrlTemplate || URL_TEMPLATE,
-        metadata && metadata.tileLayerOptions || LAYER_OPTIONS
+    this.tileLayer = Leaflet.tileLayer(
+        (metadata && metadata.tileUrlTemplate) || URL_TEMPLATE,
+        (metadata && metadata.tileLayerOptions) || LAYER_OPTIONS
       )
       .addTo(this.map);
     this.geoJSONLayer = Leaflet.geoJson(data).addTo(this.map);
-    this.map.fitBounds(this.geoJSONLayer.getBounds());
-    // Hack: Leaflet maps don't display all tiles unless the window is
-    // resized or `map.invalidateSize()` is called.
-    // https://github.com/Leaflet/Leaflet/issues/694
-    setTimeout(() => this.map.invalidateSize(), 1000);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.data !== nextProps.data;
+    this.fitBounds();
   }
 
   componentDidUpdate(prevProps) {
     this.map.removeLayer(this.geoJSONLayer);
     this.geoJSONLayer = Leaflet.geoJson(this.props.data).addTo(this.map);
-    this.map.fitBounds(this.geoJSONLayer.getBounds());
-    // Hack: Leaflet maps don't display all tiles unless the window is
-    // resized or `map.invalidateSize()` is called.
-    // https://github.com/Leaflet/Leaflet/issues/694
-    setTimeout(() => this.map.invalidateSize(), 1000);
+    this.fitBounds();
   }
 
   render() {
@@ -55,10 +42,15 @@ export default class Component extends React.Component {
       <div
         ref={element => this.element = element}
         style={{
-          height: 600,
-          width: '100%'
+          width: this.props.width || '100%',
+          height: this.props.height || '100%'
         }}
       />
     );
   }
+
+  fitBounds = () => {
+    this.map.fitBounds(this.geoJSONLayer.getBounds());
+    this.map.invalidateSize();
+  };
 }
