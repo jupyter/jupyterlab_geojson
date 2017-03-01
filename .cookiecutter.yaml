@@ -1,0 +1,7 @@
+default_context:
+    author_name: "Grant Nestor"
+    author_email: "grantnestor@gmail.com"
+    mime_type: "application/geo+json"
+    file_extension: "geojson"
+    mime_short_name: "GeoJSON"
+    extension_name: "jupyterlab_geojson"
