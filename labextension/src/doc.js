@@ -1,4 +1,4 @@
-import { Widget } from 'phosphor/lib/ui/widget';
+import { Widget } from '@phosphor/widgets';
 import { ABCWidgetFactory } from 'jupyterlab/lib/docregistry';
 import { ActivityMonitor } from 'jupyterlab/lib/common/activitymonitor';
 import React from 'react';
@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import GeoJSON from 'jupyterlab_geojson_react';
 
 /**
- * The class name added to this DocWidget.
+ * The class name added to a DocWidget.
  */
 const CLASS_NAME = 'jp-DocWidgetGeoJSON';
 
@@ -14,7 +14,6 @@ const CLASS_NAME = 'jp-DocWidgetGeoJSON';
  * The timeout to wait for change activity to have ceased before rendering.
  */
 const RENDER_TIMEOUT = 1000;
-
 
 /**
  * A widget for rendering jupyterlab_geojson files.
@@ -24,6 +23,8 @@ export class DocWidget extends Widget {
   constructor(context) {
     super();
     this._context = context;
+    this._height = this.node.offsetWidth;
+    this._height = this.node.offsetHeight;
     this.addClass(CLASS_NAME);
     context.model.contentChanged.connect(() => {
       this.update();
@@ -56,9 +57,50 @@ export class DocWidget extends Widget {
   onUpdateRequest(msg) {
     this.title.label = this._context.path.split('/').pop();
     if (this.isAttached) {
-      let content = this._context.model.toString();
-      let json = content ? JSON.parse(content) : {};
-      if (json.type) ReactDOM.render(<GeoJSON data={json} />, this.node);
+      const content = this._context.model.toString();
+      try {
+        const data = JSON.parse(content);
+        ReactDOM.render(
+          <GeoJSON data={data} width={this._width} height={this._height} />,
+          this.node
+        );
+      } catch (error) {
+        
+        const ErrorDisplay = props => (
+          <div
+            className="jp-RenderedText jp-mod-error"
+            style={{
+              width: '100%',
+              minHeight: '100%',
+              textAlign: 'center',
+              padding: 10,
+              boxSizing: 'border-box'
+            }}
+          >
+            <span
+              style={{
+                fontSize: 18,
+                fontWeight: 500
+              }}
+            >{props.message}</span>
+            <pre
+              style={{
+                textAlign: 'left',
+                padding: 10,
+                overflow: 'hidden'
+              }}
+            >{props.content}</pre>
+          </div>
+        );
+        
+        ReactDOM.render(
+          <ErrorDisplay
+            message="Invalid JSON"
+            content={content}
+          />,
+          this.node
+        );
+      }
     }
   }
 
@@ -69,25 +111,27 @@ export class DocWidget extends Widget {
     this.update();
   }
 
+  onResize(msg) {
+    this._width = msg.width;
+    this._height = msg.height;
+    this.update();
+  }
 }
-
 
 /**
  * A widget factory for DocWidget.
  */
 export class DocWidgetFactory extends ABCWidgetFactory {
-
   constructor(options) {
     super(options);
   }
-  
+
   /**
    * Create a new widget given a context.
    */
   createNewWidget(context, kernel) {
-    let widget = new DocWidget(context);
+    const widget = new DocWidget(context);
     this.widgetCreated.emit(widget);
     return widget;
   }
-
 }

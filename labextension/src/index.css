@@ -4,14 +4,14 @@
 */
 
 .jp-OutputWidgetGeoJSON, .jp-DocWidgetGeoJSON {
+  width: 100%;
   padding: 0;
-  overflow-y: scroll;
 }
 
 .jp-OutputWidgetGeoJSON {
-  
+  height: 360px;
 }
 
 .jp-DocWidgetGeoJSON {
-  
+  overflow: hidden;
 }
