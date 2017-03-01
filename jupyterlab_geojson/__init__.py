@@ -26,20 +26,32 @@ def _jupyter_nbextension_paths():
 #   GeoJSON(data)
     
 class GeoJSON(JSON):
-
-    @property
-    def data(self):
-        return self._data
+    """A display class for displaying GeoJSON visualizations in the Jupyter Notebook and IPython kernel.
     
-    @data.setter
-    def data(self, data):
-        if isinstance(data, str):
-            data = json.loads(data)
-        self._data = data
+    Vega expects a JSON-able dict, not serialized JSON strings.
 
+    Scalar types (None, number, string) are not allowed, only dict containers.
+    """
+
+    # @property
+    # def data(self):
+    #     return self._data
+    # 
+    # @data.setter
+    # def data(self, data):
+    #     if isinstance(data, str):
+    #         data = json.loads(data)
+    #     self._data = data
+
+    def _data_and_metadata(self):
+        return self.data, self.metadata
+    
     def _ipython_display_(self):
         bundle = {
             'application/geo+json': self.data,
             'text/plain': '<jupyterlab_geojson.GeoJSON object>'
         }
-        display(bundle, raw=True)
+        metadata = {
+            'application/geo+json': self.metadata
+        }
+        display(bundle, metadata=metadata, raw=True) 
