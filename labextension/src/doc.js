@@ -23,6 +23,8 @@ export class DocWidget extends Widget {
   constructor(context) {
     super();
     this._context = context;
+    this._height = this.node.offsetWidth;
+    this._height = this.node.offsetHeight;
     this.addClass(CLASS_NAME);
     context.model.contentChanged.connect(() => {
       this.update();
@@ -59,7 +61,7 @@ export class DocWidget extends Widget {
       try {
         const data = JSON.parse(content);
         ReactDOM.render(
-          <GeoJSONComponent data={data} />,
+          <GeoJSON data={data} width={this._width} height={this._height} />,
           this.node
         );
       } catch (error) {
@@ -106,6 +108,12 @@ export class DocWidget extends Widget {
    * A message handler invoked on an `'after-attach'` message.
    */
   onAfterAttach(msg) {
+    this.update();
+  }
+
+  onResize(msg) {
+    this._width = msg.width;
+    this._height = msg.height;
     this.update();
   }
 }
