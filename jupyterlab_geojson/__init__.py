@@ -1,4 +1,4 @@
-from IPython.display import DisplayObject
+from IPython.display import DisplayObject, display
 import json
 
 # Running `npm run build` will create static resources in the static
