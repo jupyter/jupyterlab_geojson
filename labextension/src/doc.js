@@ -1,6 +1,6 @@
 import { Widget } from '@phosphor/widgets';
-import { ABCWidgetFactory } from 'jupyterlab/lib/docregistry';
-import { ActivityMonitor } from 'jupyterlab/lib/common/activitymonitor';
+import { ABCWidgetFactory } from '@jupyterlab/docregistry';
+import { ActivityMonitor } from '@jupyterlab/coreutils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GeoJSON from 'jupyterlab_geojson_react';
@@ -65,7 +65,7 @@ export class DocWidget extends Widget {
           this.node
         );
       } catch (error) {
-        
+
         const ErrorDisplay = props => (
           <div
             className="jp-RenderedText jp-mod-error"
@@ -92,7 +92,7 @@ export class DocWidget extends Widget {
             >{props.content}</pre>
           </div>
         );
-        
+
         ReactDOM.render(
           <ErrorDisplay
             message="Invalid JSON"

@@ -5,13 +5,17 @@
   "description": "A JupyterLab extension for rendering GeoJSON",
   "author": "Grant Nestor <grantnestor@gmail.com>",
   "main": "lib/plugin.js",
+  "files": [
+    "lib/*.js",
+    "style/*.css"
+  ],
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab extension"
   ],
   "scripts": {
-    "build": "node build_extension.js",
+    "build": "babel src --out-dir lib && node build_extension",
     "watch": "watch \"npm install\" src ../component --wait 10 --ignoreDotFiles",
     "preinstall": "npm install ../component",
     "prepublish": "npm run build",
@@ -21,16 +25,19 @@
     "extension:disable": "jupyter labextension disable --py --sys-prefix jupyterlab_geojson"
   },
   "dependencies": {
-    "jupyterlab": "^0.17.0",
-    "@phosphor/algorithm": "^0.1.0",
-    "@phosphor/widgets": "^0.1.3",
+    "@jupyterlab/coreutils": "^0.2.0",
+    "@jupyterlab/docregistry": "^0.2.0",
+    "@jupyterlab/rendermime": "^0.2.0",
+    "@phosphor/algorithm": "^1.0.0",
+    "@phosphor/widgets": "^1.1.0",
+    "jupyterlab_geojson_react": "^1.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },
   "devDependencies": {
     "@jupyterlab/extension-builder": ">=0.10.0",
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
