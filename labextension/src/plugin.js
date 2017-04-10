@@ -1,27 +1,40 @@
-import { IRenderMime } from 'jupyterlab/lib/rendermime';
-import { IDocumentRegistry } from 'jupyterlab/lib/docregistry';
+import { IRenderMime } from '@jupyterlab/rendermime';
+import { IDocumentRegistry } from '@jupyterlab/docregistry';
+import { ILayoutRestorer, InstanceTracker } from '@jupyterlab/apputils';
 import { toArray, ArrayExt } from '@phosphor/algorithm';
 import { OutputRenderer } from './output';
 import { DocWidgetFactory } from './doc';
 import './index.css';
 
 /**
+ * The name of the factory
+ */
+const FACTORY = 'GeoJSON';
+
+/**
+ * Set the extensions associated with application/geo+json
+ */
+const EXTENSIONS = ['.geojson', '.geo.json'];
+const DEFAULT_EXTENSIONS = ['.geojson', '.geo.json'];
+
+/**
  * Activate the extension.
  */
-function activatePlugin(app, rendermime, registry) {
+function activatePlugin(app, rendermime, registry, restorer) {
   /**
-   * Calculate the index of the renderer in the array renderers (e.g. Insert 
-   * this renderer after any renderers with mime type that matches "+json") 
-   * or simply pass an integer such as 0.
+   * Calculate the index of the renderer in the array renderers
+   * e.g. Insert this renderer after any renderers with mime type that matches 
+   * "+json"
    */
   // const index = ArrayExt.findLastIndex(
   //   toArray(rendermime.mimeTypes()),
   //   mime => mime.endsWith('+json')
   // ) + 1;
+  /* ...or just insert it at the top */
   const index = 0;
 
   /**
-   * Add the renderer to the registry of renderers.
+   * Add output renderer for application/geo+json data
    */
   rendermime.addRenderer(
     {
@@ -30,32 +43,50 @@ function activatePlugin(app, rendermime, registry) {
     },
     index
   );
-  
-  /**
-   * Set the extensions associated with GeoJSON.
-   */
-  const EXTENSIONS = ['.geojson', '.geo.json', '.json'];
-  const DEFAULT_EXTENSIONS = ['.geojson', '.geo.json'];
 
-    /**
-     * Add file handler for geojson files.
-     */
-    const options = {
-      fileExtensions: EXTENSIONS,
-      defaultFor: DEFAULT_EXTENSIONS,
-      name: 'GeoJSON',
-      displayName: 'GeoJSON',
-      modelName: 'text',
-      preferKernel: false,
-      canStartKernel: false
-    };
-    
-  registry.addWidgetFactory(new DocWidgetFactory(options));
+  const factory = new DocWidgetFactory({
+    fileExtensions: EXTENSIONS,
+    defaultFor: DEFAULT_EXTENSIONS,
+    name: FACTORY
+  });
+
+  /**
+   * Add document renderer for .geojson files
+   */
+  registry.addWidgetFactory(factory);
+
+  const tracker = new InstanceTracker({
+    namespace: 'GeoJSON',
+    shell: app.shell
+  });
+
+  /**
+   * Handle widget state deserialization
+   */
+  restorer.restore(tracker, {
+    command: 'file-operations:open',
+    args: widget => ({ path: widget.context.path, factory: FACTORY }),
+    name: widget => widget.context.path
+  });
+
+  /**
+   * Serialize widget state
+   */
+  factory.widgetCreated.connect((sender, widget) => {
+    tracker.add(widget);
+    /* Notify the instance tracker if restore data needs to update */
+    widget.context.pathChanged.connect(() => {
+      tracker.save(widget);
+    });
+  });
 }
 
+/**
+ * Configure jupyterlab plugin
+ */
 const Plugin = {
   id: 'jupyter.extensions.GeoJSON',
-  requires: [IRenderMime, IDocumentRegistry],
+  requires: [IRenderMime, IDocumentRegistry, ILayoutRestorer],
   activate: activatePlugin,
   autoStart: true
 };

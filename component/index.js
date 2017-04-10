@@ -10,23 +10,15 @@ const LAYER_OPTIONS = {
   maxZoom: 18
 };
 
-export default class Component extends React.Component {
-  constructor(props) {
-    super(props);
-    this.element = null;
-    this.map = null;
-    this.geoJSONLayer = null;
-  }
-
+export default class GeoJSONComponent extends React.Component {
   componentDidMount() {
     const { data, metadata } = this.props;
     this.map = Leaflet.map(this.element);
     this.map.scrollWheelZoom.disable();
     this.tileLayer = Leaflet.tileLayer(
-        (metadata && metadata.tileUrlTemplate) || URL_TEMPLATE,
-        (metadata && metadata.tileLayerOptions) || LAYER_OPTIONS
-      )
-      .addTo(this.map);
+      (metadata && metadata.url_template) || URL_TEMPLATE,
+      (metadata && metadata.layer_options) || LAYER_OPTIONS
+    ).addTo(this.map);
     this.geoJSONLayer = Leaflet.geoJson(data).addTo(this.map);
     this.fitBounds();
   }
@@ -52,5 +44,5 @@ export default class Component extends React.Component {
   fitBounds = () => {
     this.map.fitBounds(this.geoJSONLayer.getBounds());
     this.map.invalidateSize();
-  };
+  }
 }

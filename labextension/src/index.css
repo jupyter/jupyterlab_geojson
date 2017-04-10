@@ -1,17 +1,33 @@
-/* 
-  Copyright (c) Jupyter Development Team.
-  Distributed under the terms of the Modified BSD License. 
-*/
-
 .jp-OutputWidgetGeoJSON, .jp-DocWidgetGeoJSON {
   width: 100%;
   padding: 0;
 }
 
 .jp-OutputWidgetGeoJSON {
+  padding-top: 5px;
   height: 360px;
 }
 
 .jp-DocWidgetGeoJSON {
+  overflow: hidden;
+}
+
+.jp-DocWidgetGeoJSON .jp-mod-error {
+  width: 100%;
+  min-height: 100%;
+  text-align: center; 
+  padding: 10px; 
+  box-sizing: border-box;
+}
+
+.jp-DocWidgetGeoJSON .jp-mod-error h2 {
+  font-size: 18px; 
+  font-weight: 500; 
+  padding-bottom: 10px;
+}
+
+.jp-DocWidgetGeoJSON .jp-mod-error pre {
+  text-align: left; 
+  padding: 10px; 
   overflow: hidden;
 }
