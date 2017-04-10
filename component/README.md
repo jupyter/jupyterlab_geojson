@@ -1,6 +1,6 @@
-# jupyterlab_geojson
+# component
 
-The React component(s)
+A React component for rendering GeoJSON
 
 ## Structure
 
