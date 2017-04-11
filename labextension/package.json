@@ -14,10 +14,12 @@
     "jupyterlab",
     "jupyterlab extension"
   ],
+  "jupyterlab": {
+    "extension": true
+  },
   "scripts": {
-    "build": "babel src --out-dir lib && node build_extension",
+    "build": "babel src --out-dir lib",
     "watch": "watch \"npm install\" src ../component --wait 10 --ignoreDotFiles",
-    "preinstall": "npm install ../component",
     "prepublish": "npm run build",
     "extension:install": "jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson",
     "extension:uninstall": "jupyter labextension uninstall --py --sys-prefix jupyterlab_geojson",
@@ -29,8 +31,8 @@
     "@jupyterlab/docregistry": "^0.2.0",
     "@jupyterlab/rendermime": "^0.2.0",
     "@phosphor/algorithm": "^1.0.0",
-    "@phosphor/widgets": "^1.1.0",
-    "jupyterlab_geojson_react": "^1.0.0",
+    "@phosphor/widgets": "^1.0.0",
+    "leaflet": "^1.0.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },

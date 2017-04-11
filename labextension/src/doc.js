@@ -3,7 +3,7 @@ import { ABCWidgetFactory } from '@jupyterlab/docregistry';
 import { ActivityMonitor } from '@jupyterlab/coreutils';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoJSON from 'jupyterlab_geojson_react';
+import GeoJSON from './component';
 
 /**
  * The class name added to a DocWidget.
