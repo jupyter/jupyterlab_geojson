@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GeoJSONComponent from 'jupyterlab_geojson_react';
-import './index.css';
+import '../index.css';
 
 const MIME_TYPE = 'application/geo+json';
 const CLASS_NAME = 'output_GeoJSON rendered_html';
@@ -12,7 +12,14 @@ const DEFAULT_HEIGHT = 360;
  * Render data to the DOM node
  */
 function render(props, node) {
-  return ReactDOM.render(<GeoJSONComponent {...props} />, node);
+  const ref = ReactDOM.render(<GeoJSONComponent {...props} />, node);
+  /** Hack: Leaflet maps don't display all tiles unless the window is
+    * resized or `map.invalidateSize()` is called.
+    * https://github.com/Leaflet/Leaflet/issues/694
+   */
+  setTimeout(() => {
+    ref.map.invalidateSize();
+  }, 600);
 }
 
 /**
@@ -31,11 +38,9 @@ function handleClearOutput(event, { cell: { output_area } }) {
 function handleAddOutput(event, { output, output_area }) {
   /* Get rendered DOM node */
   const toinsert = output_area.element.find(`.${CLASS_NAME.split(' ')[0]}`);
-  /** Hack: Leaflet maps don't display all tiles unless the window is
-    * resized or `map.invalidateSize()` is called.
-    * https://github.com/Leaflet/Leaflet/issues/694
+  /** e.g. Inject a static image representation into the mime bundle for
+   *  rendering on Github, etc.
    */
-  if (toinsert[0]) output_area.ref.map.invalidateSize();
 }
 
 /**

@@ -1,9 +1,0 @@
-.output_subarea.output_GeoJSON {
-  padding: 0;
-  padding-top: 0.4em;
-  max-width: 100%;
-  height: 360px;
-}
-.leaflet-control a {
-  text-decoration: none !important;
-}
