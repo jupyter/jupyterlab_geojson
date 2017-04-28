@@ -6,14 +6,14 @@ A JupyterLab and Jupyter Notebook extension for rendering GeoJSON
 
 ## Prerequisites
 
-* JupyterLab ^0.18.0 and/or Notebook >=4.3.0
+* JupyterLab ^0.20.0 and/or Notebook >=4.3.0
 
 ## Usage
 
 To render GeoJSON output in IPython:
 
 ```python
-from jupyterlab_geojson import GeoJSON
+from IPython.display import GeoJSON
 
 GeoJSON({
     "type": "Feature",
@@ -66,12 +66,11 @@ To render a .geojson file as a tree, simply open it:
 ## Install
 
 ```bash
-pip install jupyterlab_geojson
 # For JupyterLab
-jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson
-jupyter labextension enable --py --sys-prefix jupyterlab_geojson
+jupyter labextension install --py --sys-prefix jupyterlab_geojson
 # For Notebook
-jupyter nbextension install --symlink --py --sys-prefix jupyterlab_geojson
+pip install jupyterlab_geojson
+jupyter nbextension install --py --sys-prefix jupyterlab_geojson
 jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```
 
@@ -80,8 +79,8 @@ jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
 ```bash
 pip install -e .
 # For JupyterLab
-jupyter labextension install --symlink --py --sys-prefix jupyterlab_geojson
-jupyter labextension enable --py --sys-prefix jupyterlab_geojson
+cd labextension
+jupyter labextension link .
 # For Notebook
 jupyter nbextension install --symlink --py --sys-prefix jupyterlab_geojson
 jupyter nbextension enable --py --sys-prefix jupyterlab_geojson
